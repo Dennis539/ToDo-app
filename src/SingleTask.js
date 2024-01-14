@@ -1,4 +1,5 @@
 import UpdateThisTask from "./UpdateTask"
+import { FaTrashAlt } from "react-icons/fa"
 
 const SingleTask = ({
     task,
@@ -9,6 +10,8 @@ const SingleTask = ({
     confirmUpdateTask,
     setChangedTask,
     changedTask,
+    taskChangeId,
+    setUpdatingTask,
 }) => {
     return (
         <li className="task">
@@ -19,21 +22,29 @@ const SingleTask = ({
             />
             <label>{task.item}</label>
 
-            <button onClick={() => deleteSingleTask(task.id)}>
-                Delete Task
-            </button>
             <div>
-                {updatingTask ? (
+                {updatingTask && task.id === taskChangeId ? (
                     <UpdateThisTask
                         task={task}
                         confirmUpdateTask={confirmUpdateTask}
                         setChangedTask={setChangedTask}
                         changedTask={changedTask}
+                        setUpdatingTask={setUpdatingTask}
                     />
+                ) : updatingTask && task.id !== taskChangeId ? (
+                    <div></div>
                 ) : (
-                    <button onClick={() => updateTask(task.id)}>
-                        Update Tasks
-                    </button>
+                    <div>
+                        <button onClick={() => updateTask(task.id)}>
+                            Update Task
+                        </button>
+                        <FaTrashAlt
+                            onClick={() => deleteSingleTask(task.id)}
+                            role="button"
+                            tabIndex="0"
+                            aria-label={`Delete ${task.item}`}
+                        />
+                    </div>
                 )}
             </div>
         </li>

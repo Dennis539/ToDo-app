@@ -3,6 +3,7 @@ const UpdateThisTask = ({
     confirmUpdateTask,
     setChangedTask,
     changedTask,
+    setUpdatingTask,
 }) => {
     return (
         <form onSubmit={(e) => confirmUpdateTask(e, task.id)}>
@@ -16,6 +17,9 @@ const UpdateThisTask = ({
                 {console.log(changedTask)}
             </label>
             <button type="submit">Confirm update</button>
+            <button id="cancelButton" onClick={() => setUpdatingTask(false)}>
+                Cancel
+            </button>
         </form>
     )
 }

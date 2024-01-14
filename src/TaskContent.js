@@ -9,6 +9,8 @@ const TaskContent = ({
     confirmUpdateTask,
     setChangedTask,
     changedTask,
+    taskChangeId,
+    setUpdatingTask,
 }) => {
     return (
         <main>
@@ -22,6 +24,8 @@ const TaskContent = ({
                     confirmUpdateTask={confirmUpdateTask}
                     setChangedTask={setChangedTask}
                     changedTask={changedTask}
+                    taskChangeId={taskChangeId}
+                    setUpdatingTask={setUpdatingTask}
                 />
             ) : (
                 <p>Your list is empty</p>

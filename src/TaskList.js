@@ -9,6 +9,8 @@ const TaskList = ({
     confirmUpdateTask,
     setChangedTask,
     changedTask,
+    taskChangeId,
+    setUpdatingTask,
 }) => {
     return (
         <ul>
@@ -22,6 +24,8 @@ const TaskList = ({
                     confirmUpdateTask={confirmUpdateTask}
                     setChangedTask={setChangedTask}
                     changedTask={changedTask}
+                    taskChangeId={taskChangeId}
+                    setUpdatingTask={setUpdatingTask}
                 />
             ))}
         </ul>

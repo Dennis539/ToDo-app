@@ -1,11 +1,15 @@
 import * as React from "react"
 import TaskContent from "./TaskContent"
+import Header from "./Header"
+import AddTask from "./Addtask"
+import Footer from "./Footer"
 
 function App() {
     const [inputValue, setInputValue] = React.useState("")
     const [updatingTask, setUpdatingTask] = React.useState(false)
     const [changedTask, setChangedTask] = React.useState("")
     const [tasks, setTasks] = React.useState([])
+    const [taskChangeId, setTaskChangeId] = React.useState("")
 
     const addItem = (item) => {
         const id = tasks.length ? tasks[tasks.length - 1].id + 1 : 1
@@ -33,6 +37,7 @@ function App() {
         const toUpdateTask = tasks.filter((task) => task.id === id)
         setUpdatingTask(true)
         setChangedTask(toUpdateTask[0].item)
+        setTaskChangeId(toUpdateTask[0].id)
     }
 
     const confirmUpdateTask = (e, taskId) => {
@@ -57,30 +62,26 @@ function App() {
 
     return (
         <div className="App">
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Please enter your task:
-                    <input
-                        type="text"
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                    />
-                </label>
-                <button type="submit">Add task</button>
-                <button onClick={deleteAllTasks}>Delete all tasks</button>
-            </form>
-            <div>
-                <TaskContent
-                    tasks={tasks}
-                    deleteSingleTask={deleteSingleTask}
-                    handleCheck={handleCheck}
-                    updateTask={updateTask}
-                    updatingTask={updatingTask}
-                    confirmUpdateTask={confirmUpdateTask}
-                    setChangedTask={setChangedTask}
-                    changedTask={changedTask}
-                />
-            </div>
+            <Header title="Todo list" />
+            <AddTask
+                handleSubmit={handleSubmit}
+                inputValue={inputValue}
+                setInputValue={setInputValue}
+                deleteAllTasks={deleteAllTasks}
+            />
+            <TaskContent
+                tasks={tasks}
+                deleteSingleTask={deleteSingleTask}
+                handleCheck={handleCheck}
+                updateTask={updateTask}
+                updatingTask={updatingTask}
+                confirmUpdateTask={confirmUpdateTask}
+                setChangedTask={setChangedTask}
+                changedTask={changedTask}
+                taskChangeId={taskChangeId}
+                setUpdatingTask={setUpdatingTask}
+            />
+            <Footer length={tasks.length} />
         </div>
     )
 }
