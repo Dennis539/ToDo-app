@@ -1,25 +1,43 @@
-import "./App.css"
 import * as React from "react"
+import TaskContent from "./TaskContent"
 
 function App() {
     const [inputValue, setInputValue] = React.useState("")
     const [tasks, setTasks] = React.useState([])
 
+    const addItem = (item) => {
+        const id = tasks.length ? tasks.length : 0
+        const newTask = { id, checked: false, item }
+        setTasks([...tasks, newTask])
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         if (inputValue) {
-            setTasks([...tasks, { label: inputValue, completed: false }])
+            addItem(inputValue)
         }
         setInputValue("")
     }
 
-    const Checkbox = ({ label, value, toggle }) => {
-        return (
-            <label>
-                <input type="checkbox" checked={value} onChange={toggle} />
-                {label}
-            </label>
+    const handleCheck = (id) => {
+        const listTasks = tasks.map((item) =>
+            item.id === id ? { ...item, checked: !item.checked } : item
         )
+    }
+
+    const updateTask = (index) => {
+        const updatedTasks = [...tasks]
+        console.log(updatedTasks)
+    }
+
+    const deleteSingleTask = (id) => {
+        console.log(`Deleting single task at index ${id}`)
+        const updatedTasks = tasks.filter((task) => task.id !== id)
+        setTasks(updatedTasks)
+    }
+
+    const deleteAllTasks = (e) => {
+        setTasks([])
     }
 
     return (
@@ -34,23 +52,14 @@ function App() {
                     />
                 </label>
                 <button type="submit">Add task</button>
+                <button onClick={deleteAllTasks}>Delete all tasks</button>
             </form>
             <div>
-                {tasks.map((task, index) => {
-                    return (
-                        <Checkbox
-                            key={index}
-                            label={task.label}
-                            value={task.completed}
-                            toggle={() => {
-                                const updatedTasks = [...tasks]
-                                updatedTasks[index].completed =
-                                    !updatedTasks[index].completed
-                                setTasks(updatedTasks)
-                            }}
-                        />
-                    )
-                })}
+                <TaskContent
+                    tasks={tasks}
+                    deleteSingleTask={deleteSingleTask}
+                    handleCheck={handleCheck}
+                />
             </div>
         </div>
     )
