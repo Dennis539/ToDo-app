@@ -6,9 +6,11 @@ const UpdateThisTask = ({
     setUpdatingTask,
 }) => {
     return (
-        <form onSubmit={(e) => confirmUpdateTask(e, task.id)}>
+        <form
+            className="updateTaskForm"
+            onSubmit={(e) => confirmUpdateTask(e, task.id)}
+        >
             <label>
-                Please update your task:
                 <input
                     type="text"
                     value={changedTask}
@@ -16,10 +18,15 @@ const UpdateThisTask = ({
                 />
                 {console.log(changedTask)}
             </label>
-            <button type="submit">Confirm update</button>
-            <button id="cancelButton" onClick={() => setUpdatingTask(false)}>
-                Cancel
-            </button>
+            <div className="updateTaskFormButton">
+                <button type="submit">Confirm update</button>
+                <button
+                    id="cancelButton"
+                    onClick={() => setUpdatingTask(false)}
+                >
+                    Cancel
+                </button>
+            </div>
         </form>
     )
 }

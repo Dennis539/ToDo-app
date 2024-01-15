@@ -58,6 +58,8 @@ function App() {
 
     const deleteAllTasks = (e) => {
         setTasks([])
+        setUpdatingTask(false)
+        setChangedTask("")
     }
 
     return (
